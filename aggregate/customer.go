@@ -1,9 +1,15 @@
 package aggregate
 
 import (
+	"errors"
+
 	"github.com/RajVerma97/golang-domain-driven-design/entity"
 	"github.com/RajVerma97/golang-domain-driven-design/valueobject"
 	"github.com/google/uuid"
+)
+
+var (
+	ErrInvalidPerson = errors.New("a customer has to have a valid name")
 )
 
 type Customer struct {
@@ -17,7 +23,7 @@ type Customer struct {
 func NewCustomer(name string) (*Customer, error) {
 
 	if name == "" {
-		return &Customer{}, nil
+		return &Customer{}, ErrInvalidPerson
 	}
 
 	person := &entity.Person{
