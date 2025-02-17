@@ -1,4 +1,2 @@
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/percybolmer/ddd-go v0.0.0-20210904185238-be3efc77d92e h1:I08XRkP8aXsIoFJnC33Van6YxGWC4mD0s17ZMJVqEeA=
-github.com/percybolmer/ddd-go v0.0.0-20210904185238-be3efc77d92e/go.mod h1:DiE5MqWnr3yBVzID4NMrj57IzRTCB5JepWgK3xhVZqk=
