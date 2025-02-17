@@ -29,7 +29,7 @@ func (mpr *MemoryProductRepository) GetAll() ([]aggregate.Product, error) {
 
 }
 func (mpr *MemoryProductRepository) GetByID(id uuid.UUID) (aggregate.Product, error) {
-	if product, ok := mpr.products[productID]; ok {
+	if product, ok := mpr.products[id]; ok {
 		return product, nil
 	}
 	return aggregate.Product{}, product.ErrProductNotFound
