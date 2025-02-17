@@ -1,11 +1,13 @@
 package services
 
 import (
+	"context"
 	"log"
 
 	"github.com/RajVerma97/golang-domain-driven-design/aggregate"
 	"github.com/RajVerma97/golang-domain-driven-design/domain/customer"
 	"github.com/RajVerma97/golang-domain-driven-design/domain/customer/memory"
+	"github.com/RajVerma97/golang-domain-driven-design/domain/customer/mongo"
 	"github.com/RajVerma97/golang-domain-driven-design/domain/product"
 	prodmemory "github.com/RajVerma97/golang-domain-driven-design/domain/product/memory"
 	"github.com/google/uuid"
@@ -43,6 +45,18 @@ func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
 func WithMemoryCustomerRepository() OrderConfiguration {
 	cr := memory.New()
 	return WithCustomerRepository(cr)
+}
+
+func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
+	return func(os *OrderService) error {
+		// Create the mongo repo, if we needed parameters, such as connection strings they could be inputted here
+		cr, err := mongo.New(context.Background(), connectionString)
+		if err != nil {
+			return err
+		}
+		os.customers = cr
+		return nil
+	}
 }
 
 // WithMemoryProductRepository adds a in memory product repo and adds all input products

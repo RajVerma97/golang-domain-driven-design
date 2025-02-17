@@ -12,7 +12,7 @@ func Test_Tavern(t *testing.T) {
 	products := init_products(t)
 
 	os, err := NewOrderService(
-		WithMemoryCustomerRepository(),
+		WithMongoCustomerRepository("mongodb+srv://rajneeshkumar2545:2O2JAZ7kfaHOjkbT@stock-glimpse-db.ypstj.mongodb.net/golang-domain-driven-design?retryWrites=true&w=majority"),
 		WithMemoryProductRepository(products),
 	)
 	if err != nil {
