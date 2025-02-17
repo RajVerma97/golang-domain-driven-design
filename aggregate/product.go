@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	ErrMissingValues = errors.New("missing product values")
+	ErrMissingValues        = errors.New("missing product values")
+	ErrProductAlreadyExists = errors.New("product already exists")
 )
 
 type Product struct {
