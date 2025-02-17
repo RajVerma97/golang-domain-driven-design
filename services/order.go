@@ -7,6 +7,7 @@ import (
 	"github.com/RajVerma97/golang-domain-driven-design/domain/customer"
 	"github.com/RajVerma97/golang-domain-driven-design/domain/customer/memory"
 	"github.com/RajVerma97/golang-domain-driven-design/domain/product"
+	prodmemory "github.com/RajVerma97/golang-domain-driven-design/domain/product/memory"
 	"github.com/google/uuid"
 )
 
@@ -39,9 +40,27 @@ func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
 
 }
 
-func WithMemoryRepository() OrderConfiguration {
+func WithMemoryCustomerRepository() OrderConfiguration {
 	cr := memory.New()
 	return WithCustomerRepository(cr)
+}
+
+// WithMemoryProductRepository adds a in memory product repo and adds all input products
+func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
+	return func(os *OrderService) error {
+		// Create the memory repo, if we needed parameters, such as connection strings they could be inputted here
+		pr := prodmemory.New()
+
+		// Add Items to repo
+		for _, p := range products {
+			err := pr.Add(p)
+			if err != nil {
+				return err
+			}
+		}
+		os.products = pr
+		return nil
+	}
 }
 
 // CreateOrder will chaintogether all repositories to create a order for a customer
@@ -69,5 +88,5 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	log.Printf("Customer: %s has ordered %d products", c.GetID(), len(products))
 	// Add Products and Update Customer
 
-	return price, nil
+	return total, nil
 }
